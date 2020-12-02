@@ -39,7 +39,7 @@ client.manager = new Manager({
   });
 
 var besNbirK = ['nerede','niçin','ne zaman','neden'];
-var kufurList = ['amk','piç','aq','göt','göt lalesi','sikik','amına','amına koyim','amına koyayim'];
+var kufurList = ['amk','piç','aq','göt','göt lalesi','sikik','amına','amına koyim','amına koyayim','amcık'];
 
 client.once("ready", () => {
   console.log("Bot " + client.user.username +" Olarak Bağlandı!");
@@ -261,7 +261,7 @@ client.on("message", async (message) => {
       message.channel.send('https://tenor.com/boIil.gif');
     } else if (mesajContent(message.content) == "earrape"){
       const res = await client.manager.search(
-        "EARRAPE",
+        "https://www.youtube.com/watch?v=QK2rmLE7mFw&t",
         message.author
       );
       const player = client.manager.create({
