@@ -7,6 +7,7 @@ const { botPrefix } = require('./config.json');
 const botToken = process.env.BOT_TOKEN;
 const botHost = process.env.HOST;
 const botPasswd = process.env.PASSWORD;
+const botPort = 80;
 const fs = require('fs');
 const client = new Client();
 client.manager = new Manager({
