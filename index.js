@@ -111,13 +111,9 @@ client.on("message", async (message) => {
     });
     player.connect();
     player.queue.add(res.tracks[0]);
-    if (!player.playing && !player.paused && !player.queue.size)
+    if (!player.playing && !player.paused && !player.queue.size){
       player.play();
-    if (
-      !player.playing &&
-      !player.paused &&
-      player.queue.totalSize === res.tracks.length
-    )
+    }
   } else if (mesajContent(message.content) == (botPrefix + "stop")) {
     const res = await client.manager.search(
       message.content.slice(6),
@@ -270,14 +266,10 @@ client.on("message", async (message) => {
       });
       player.connect();
       player.queue.add(res.tracks[0]);
-      if (!player.playing && !player.paused && !player.queue.size)
+      if (!player.playing && !player.paused && !player.queue.size){
         player.setVolume(100);
         player.play();
-      if (
-        !player.playing &&
-        !player.paused &&
-        player.queue.totalSize === res.tracks.length
-      )
+      }
     }
 });
 
