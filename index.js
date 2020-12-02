@@ -5,9 +5,11 @@ const { Manager } = require("erela.js");
 const { send } = require("process");
 const { botPrefix } = require('./config.json');
 const botToken = process.env.BOT_TOKEN;
+/*
 const botHost = process.env.HOST;
 const botPasswd = process.env.PASSWORD;
 const botPort = 80;
+*/
 const fs = require('fs');
 const client = new Client();
 client.manager = new Manager({
@@ -37,7 +39,6 @@ client.manager = new Manager({
 
     player.destroy();
   });
-
 var besNbirK = ['nerede','niçin','ne zaman','neden'];
 var kufurList = ['amk','piç','aq','göt','göt lalesi','sikik','amına','amına koyim','amına koyayim','amcık'];
 
@@ -98,7 +99,7 @@ client.on("message", async (message) => {
       user.kick();
       message.channel.send(`${banner} isimli Amir, ${user} isimli kullanıcıyı kickledi!`);
     }
-  }
+  /*
   if (message.content.startsWith(botPrefix + "play")) {
     const res = await client.manager.search(
       message.content.slice(6),
@@ -183,7 +184,7 @@ client.on("message", async (message) => {
       player.pause(false);
     } else {
       message.channel.send('Müzik zaten çalıyor?!');
-    }
+    }*/
   } else if (mesajContent(message.content) == "siyah"){
     message.channel.send('BEYAZ!');
   } else if (mesajContent(message.content) == "en büyük"){
@@ -255,6 +256,15 @@ client.on("message", async (message) => {
     } else if (mesajContent(message.content) == "şaka şaka"){
       message.channel.send('https://tenor.com/boIil.gif');
     } else if (mesajContent(message.content) == "earrape"){
+      const player = client.manager.create({
+        guild: message.guild.id,
+        voiceChannel: message.member.voice.channelID,
+        textChannel: message.channel.id,
+      });
+      player.connect();
+      message.channel.send(';;play https://www.youtube.com/watch?v=QK2rmLE7mFw');
+      player.disconnect();
+      /*
       const res = await client.manager.search(
         "https://www.youtube.com/watch?v=QK2rmLE7mFw&t",
         message.author
@@ -270,6 +280,7 @@ client.on("message", async (message) => {
         player.setVolume(100);
         player.play();
       }
+      */
     }
 });
 
