@@ -1,0 +1,34 @@
+{
+  "name": "jsbot",
+  "version": "1.0.0",
+  "description": "BBT Discord Bot Writed With JS",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "child": "0.0.3",
+    "node": "14.x",
+    "discord.js": "^12.5.1",
+    "erela.js": "^2.2.0",
+    "ffmpeg": "0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "http": "0.0.1-security",
+    "timers": "^0.1.1",
+    "ytdl-core": "^4.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "lavalink": "java -jar lavalink.jar"
+  },
+  "keywords": [
+    "Javascript",
+    "Music",
+    "Bot",
+    "BBT",
+    "Discord",
+    "Bot"
+  ],
+  "author": "Wilson",
+  "license": "ISC"
+}
