@@ -5,11 +5,9 @@ const { Manager } = require("erela.js");
 const { send } = require("process");
 const { botPrefix } = require('./config.json');
 const botToken = process.env.BOT_TOKEN;
-/*
 const botHost = process.env.HOST;
 const botPasswd = process.env.PASSWORD;
 const botPort = 80;
-*/
 const fs = require('fs');
 const client = new Client();
 client.manager = new Manager({
@@ -255,32 +253,6 @@ client.on("message", async (message) => {
       message.channel.send('https://i.hizliresim.com/uzKNIz.png');
     } else if (mesajContent(message.content) == "şaka şaka"){
       message.channel.send('https://tenor.com/boIil.gif');
-    } else if (mesajContent(message.content) == "earrape"){
-      const player = client.manager.create({
-        guild: message.guild.id,
-        voiceChannel: message.member.voice.channelID,
-        textChannel: message.channel.id,
-      });
-      player.connect();
-      message.channel.send(';;play https://www.youtube.com/watch?v=QK2rmLE7mFw');
-      player.disconnect();
-      /*
-      const res = await client.manager.search(
-        "https://www.youtube.com/watch?v=QK2rmLE7mFw&t",
-        message.author
-      );
-      const player = client.manager.create({
-        guild: message.guild.id,
-        voiceChannel: message.member.voice.channelID,
-        textChannel: message.channel.id,
-      });
-      player.connect();
-      player.queue.add(res.tracks[0]);
-      if (!player.playing && !player.paused && !player.queue.size){
-        player.setVolume(100);
-        player.play();
-      }
-      */
     }
 });
 
