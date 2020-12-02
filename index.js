@@ -118,7 +118,6 @@ client.on("message", async (message) => {
       !player.paused &&
       player.queue.totalSize === res.tracks.length
     )
-      player.play();
   } else if (mesajContent(message.content) == (botPrefix + "stop")) {
     const res = await client.manager.search(
       message.content.slice(6),
@@ -279,8 +278,6 @@ client.on("message", async (message) => {
         !player.paused &&
         player.queue.totalSize === res.tracks.length
       )
-        player.play();
-        player.setVolume(100);
     }
 });
 
