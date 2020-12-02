@@ -54,7 +54,7 @@ function mesajContent(mesaj){
 }
 client.on("message", async (message) => {
   if (mesajContent(message.content) == (`${botPrefix}help`)){
-    message.channel.send("BBT-BOT Komutları: \n $ping -> BBT-Bot'un çalışıp çalışmadığını görmek için kullanılır. \n $amirban -> Amir yetkisi olan kişiler için 'Ban' yetkisi. \n $amirkick -> Amir yetkisi olan kişiler için 'Kick' yetkisi. \n $play -> Müzik çalma sistemini aktifleştirir. [Kullanım: $play [url] veya $play [müzik ismi]]\n $pause -> Müzik duraklatır.\n $resume -> Müziği devam ettirir. \n $stop -> Müziği durdurur. \n $next -> Bir sonraki şarkıyı çalar.\n\n Mamdinden Mesaj: BOT üzerinde Easter-Egg'ler vardır. Keşfedin.");
+    message.channel.send("BBT-BOT Komutları: \n $ping -> BBT-Bot'un çalışıp çalışmadığını görmek için kullanılır. \n $amirban -> Amir yetkisi olan kişiler için 'Ban' yetkisi. \n $amirkick -> Amir yetkisi olan kişiler için 'Kick' yetkisi. \n /***********************************************\ \n $play -> Müzik çalma sistemini aktifleştirir. [Kullanım: $play [url] veya $play [müzik ismi]]\n $pause -> Müzik duraklatır.\n $resume -> Müziği devam ettirir. \n $stop -> Müziği durdurur. \n $next -> Bir sonraki şarkıyı çalar\n/************* Sunucu Yetersizliğinden Dolayı Devre Dışı *************\.\n\n Mamdinden Mesaj: BOT üzerinde Easter-Egg'ler vardır. Keşfedin.");
   }
   if (mesajContent(message.content).startsWith(`${botPrefix}ban`)){
     let user = message.mentions.members.first();
