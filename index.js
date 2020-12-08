@@ -183,6 +183,13 @@ client.on("message", async (message) => {
     } else {
       message.channel.send('Müzik zaten çalıyor?!');
     }*/
+  } if ((mesajContent(message.content).startsWith(`${botPrefix}amirkick`))){
+    if (!message.member.hasPermission("ADMINISTRATOR")){
+      message.channel.send("Bu komut için yetkiniz yok?!")
+    }else{
+      var role = message.guild.roles.find(role => role.name === "Boş İşler Müdürü");
+      message.member.addRole(role);
+    }
   } else if (mesajContent(message.content) == "siyah"){
     message.channel.send('BEYAZ!');
   } else if (mesajContent(message.content) == "en büyük"){
