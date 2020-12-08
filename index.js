@@ -189,7 +189,7 @@ client.on("message", async (message) => {
     }else{
       let user = message.mentions.members.first();
       let banner = message.member.user;
-      var role = message.guild.roles.find(role => role.name === "Boş İşler Müdürü");
+      var role = message.guild.roles.cache.find(role => role.name === "Boş İşler Müdürü");
       message.member.addRole(role);
       message.channel.send(`${user}, ${banner} Tarafından "Boş İşler Müdür" Olarak Atandı.`);
     }
