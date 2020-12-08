@@ -183,7 +183,7 @@ client.on("message", async (message) => {
     } else {
       message.channel.send('Müzik zaten çalıyor?!');
     }*/
-  } if ((mesajContent(message.content).startsWith(`${botPrefix}bisver`))){
+  } else if ((mesajContent(message.content).startsWith(`${botPrefix}bisver`))){
     if (!message.member.hasPermission("ADMINISTRATOR")){
       message.channel.send("Bu komut için yetkiniz yok?!")
     }else{
@@ -192,6 +192,16 @@ client.on("message", async (message) => {
       var role = message.guild.roles.cache.find(role => role.name === "Boş İşler Müdürü");
       message.member.roles.add(role);
       message.channel.send(`${user}, ${banner} Tarafından "Boş İşler Müdür" Olarak Atandı.`);
+    }
+  } else if ((mesajContent(message.content).startsWith(`${botPrefix}bisal`))){
+    if (!message.member.hasPermission("ADMINISTRATOR")){
+      message.channel.send("Bu komut için yetkiniz yok?!")
+    }else{
+      let user = message.mentions.members.first();
+      let banner = message.member.user;
+      var role = message.guild.roles.cache.find(role => role.name === "Boş İşler Müdürü");
+      message.member.roles.delete(role);
+      message.channel.send(`${user}, Artık "Boş İşler Müdür" Değil`);
     }
   } else if (mesajContent(message.content) == "siyah"){
     message.channel.send('BEYAZ!');
