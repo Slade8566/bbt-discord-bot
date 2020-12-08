@@ -210,7 +210,7 @@ client.on("message", async (message) => {
         let user = message.mentions.members.first();
         let rolVerilecek = message.mentions.roles.first();
         let banner = message.member.user;
-        var role = message.guild.roles.cache.find(role => role.name === rolVerilecek);
+        var role = message.guild.roles.cache.find(role => role.name === `"${rolVerilecek}"`);
         message.member.roles.add(role);
         message.channel.send(`${user}, ${banner} Tarafından "${rolVerilecek}" Olarak Atandı.`);
       }
@@ -221,9 +221,9 @@ client.on("message", async (message) => {
         let user = message.mentions.members.first();
         let rolAlinacak = message.mentions.roles.first();
         let banner = message.member.user;
-        var role = message.guild.roles.cache.find(role => role.name === rolAlinacak);
+        var role = message.guild.roles.cache.find(role => role.name === `"${rolAlinacak}"`);
         message.member.roles.remove(role);
-        message.channel.send(`${user}, ${banner} Tarafından "${rolVerilecek}" Yetkisi Alındı!`);
+        message.channel.send(`${user}, ${banner} Tarafından "${rolAlinacak}" Yetkisi Alındı!`);
       }
     } else if (mesajContent(message.content) == "siyah"){
     message.channel.send('BEYAZ!');
