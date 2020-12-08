@@ -203,29 +203,27 @@ client.on("message", async (message) => {
       message.member.roles.remove(role);
       message.channel.send(`${user}, Artık "Boş İşler Müdür" Değil`);
     }
-  } else if ((mesajContent(message.content).startsWith(`${botPrefix}rolver`))){
-      if (!message.member.hasPermission("ADMINISTRATOR")){
-        message.channel.send("Bu komut için yetkiniz yok?!")
-      }else{
-        let user = message.mentions.members.first();
-        let rolVerilecek = message.mentions.roles.first();
-        let banner = message.member.user;
-        var role = message.guild.roles.cache.find(role => role.name === `"${rolVerilecek}"`);
-        message.member.roles.add(role);
-        message.channel.send(`${user}, ${banner} Tarafından "${rolVerilecek}" Olarak Atandı.`);
-      }
-    } else if ((mesajContent(message.content).startsWith(`${botPrefix}rolal`))){
-      if (!message.member.hasPermission("ADMINISTRATOR")){
-        message.channel.send("Bu komut için yetkiniz yok?!")
-      }else{
-        let user = message.mentions.members.first();
-        let rolAlinacak = message.mentions.roles.first();
-        let banner = message.member.user;
-        var role = message.guild.roles.cache.find(role => role.name === `"${rolAlinacak}"`);
-        message.member.roles.remove(role);
-        message.channel.send(`${user}, ${banner} Tarafından "${rolAlinacak}" Yetkisi Alındı!`);
-      }
-    } else if (mesajContent(message.content) == "siyah"){
+  } else if ((mesajContent(message.content).startsWith(`${botPrefix}mamdinver`))){
+    if (!message.member.hasPermission("ADMINISTRATOR")){
+      message.channel.send("Bu komut için yetkiniz yok?!")
+    }else{
+      let user = message.mentions.members.first();
+      let banner = message.member.user;
+      var role = message.guild.roles.cache.find(role => role.name === "Mamdin");
+      message.member.roles.add(role);
+      message.channel.send(`${user}, ${banner} Tarafından "Mamdin" Olarak Atandı.`);
+    }
+  } else if ((mesajContent(message.content).startsWith(`${botPrefix}mamdinal`))){
+    if (!message.member.hasPermission("ADMINISTRATOR")){
+      message.channel.send("Bu komut için yetkiniz yok?!")
+    }else{
+      let user = message.mentions.members.first();
+      let banner = message.member.user;
+      var role = message.guild.roles.cache.find(role => role.name === "Mamdin");
+      message.member.roles.remove(role);
+      message.channel.send(`${user}, Artık "Mamdin" Değil`);
+    }
+  } else if (mesajContent(message.content) == "siyah"){
     message.channel.send('BEYAZ!');
   } else if (mesajContent(message.content) == "en büyük"){
     message.channel.send('BBT!');
