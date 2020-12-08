@@ -200,7 +200,7 @@ client.on("message", async (message) => {
       let user = message.mentions.members.first();
       let banner = message.member.user;
       var role = message.guild.roles.cache.find(role => role.name === "Boş İşler Müdürü");
-      message.member.roles.delete(role);
+      message.member.roles.remove(role);
       message.channel.send(`${user}, Artık "Boş İşler Müdür" Değil`);
     }
   } else if (mesajContent(message.content) == "siyah"){
