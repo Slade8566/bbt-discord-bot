@@ -16,7 +16,7 @@ var db = new sqlite3.Database(':memory:');
 const dateNow = new Date();
 db.run(`CREATE TABLE IF NOT EXISTS "gorevler" ("gorev" TEXT, "tarih" TEXT, "gorevdurum" INTEGER DEFAULT 0, "saatBildirim" INTEGER DEFAULT 12);`);
 // 0 */1 * * *
-cron.schedule('* * * * *', function(){
+cron.schedule('0 */1 * * *', function(){
   db.all("SELECT gorev, tarih, gorevdurum, saatBildirim FROM gorevler", (error, rows) => {
     rows.forEach((row) => {
       console.log(row);
@@ -32,7 +32,7 @@ cron.schedule('* * * * *', function(){
         }
         var fullDate = (year+"-"+month+"-"+day);
         if (gorevTarih.toString() == fullDate.toString()) {
-          const channel = client.channels.cache.find(channel => channel.id === "781467489606696980")
+          const channel = client.channels.cache.find(channel => channel.id === "731197179355725856")
           var bildirimSaat = row.saatBildirim.toString();
           if (hour == bildirimSaat) {
             channel.send(`:bell: Bügün için belirlenen bildirim var! Bildirim: ${row.gorev} :bell:`);
