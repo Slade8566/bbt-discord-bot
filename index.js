@@ -245,7 +245,7 @@ client.on("message", async (message) => {
       let user = message.mentions.members.first();
       let banner = message.member.user;
       var role = message.guild.roles.cache.find(role => role.name === "Mamdin");
-      message.member.roles.add(role);
+      user.member.roles.add(role);
       message.channel.send(`${user}, ${banner} Tarafından "Mamdin" Olarak Atandı.`);
     }
   } else if ((mesajContent(message.content).startsWith(`${botPrefix}mamdinal`))){
@@ -255,7 +255,7 @@ client.on("message", async (message) => {
       let user = message.mentions.members.first();
       let banner = message.member.user;
       var role = message.guild.roles.cache.find(role => role.name === "Mamdin");
-      message.member.roles.remove(role);
+      user.roles.remove(role);
       message.channel.send(`${user}, Artık "Mamdin" Değil`);
     }
   } else if (mesajContent(message.content) == "siyah"){
@@ -328,7 +328,7 @@ client.on("message", async (message) => {
       message.channel.send('https://i.hizliresim.com/uzKNIz.png');
     } else if (mesajContent(message.content) == "şaka şaka"){
       message.channel.send('https://tenor.com/boIil.gif');
-    } else if (mesajContent(message.content).startsWith(`${botprefix}bildirim`)) {
+    } else if (mesajContent(message.content).startsWith(`${botPrefix}bildirim`)) {
       var msgConetent = (message.content.split(" "));
       var gorev = msgConetent[1].toString();
       var date = msgConetent[2].toString();
