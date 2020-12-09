@@ -11,11 +11,13 @@ const botPort = 80;
 const fs = require('fs');
 const cron = require('node-cron');
 const sqlite3 = require('sqlite3');
+const { type } = require("os");
 var db = new sqlite3.Database(':memory:');
 const dateNow = new Date();
-db.run(`CREATE TABLE IF NOT EXISTS "gorevler" ("gorev"	TEXT,"tarih"	TEXT,"gorevdurum"	INTEGER DEFAULT 0);`);
-cron.schedule('0 */1 * * *', function(){
-  db.all("SELECT gorev, tarih, gorevdurum FROM gorevler", (error, rows) => {
+db.run(`CREATE TABLE IF NOT EXISTS "gorevler" ("gorev" TEXT, "tarih" TEXT, "gorevdurum" INTEGER DEFAULT 0, "saatBildirim" INTEGER DEFAULT 12);`);
+// 0 */1 * * *
+cron.schedule('* * * * *', function(){
+  db.all("SELECT gorev, tarih, gorevdurum, saatBildirim FROM gorevler", (error, rows) => {
     rows.forEach((row) => {
       const gorevdurum = row.gorevdurum;
       if (gorevdurum == 0) {
@@ -29,14 +31,14 @@ cron.schedule('0 */1 * * *', function(){
         }
         var fullDate = (year+"-"+month+"-"+day);
         if (gorevTarih.toString() == fullDate.toString()) {
-          if (hour == 12) {
-            console.log(`Bügün için belirlenen bildirim(ler) var! Bildirim: ${row.gorev}`);
-            //message.channel.send(`Saat 12:00`);
-            message.channel.send(`Bügün için belirlenen bildirim(ler) var! Bildirim: ${req.gorev}`);
-            db.run(`UPDATE gorevler SET gorevdurum=1 WHERE gorev="${row.gorev}" and tarih="${row.tarih}"`,
+          const channel = client.channels.cache.find(channel => channel.id === "781467489606696980")
+          var bildirimSaat = row.saatBildirim.toString();
+          if (hour == bildirimSaat) {
+            channel.send(`:bell: Bügün için belirlenen bildirim var! Bildirim: ${row.gorev} :bell:`);
+              db.run(`UPDATE gorevler SET gorevdurum=1 WHERE gorev="${row.gorev}" and tarih="${row.tarih}"`,
               function(error){
-                  console.log('Bildirim silindi.');
-                }
+                console.log('Bildirim silindi.');
+              }
             );
           }
         }
@@ -329,15 +331,47 @@ client.on("message", async (message) => {
     } else if (mesajContent(message.content) == "şaka şaka"){
       message.channel.send('https://tenor.com/boIil.gif');
     } else if (mesajContent(message.content).startsWith(`${botPrefix}bildirim`)) {
-      var msgConetent = (message.content.split(" "));
-      var gorev = msgConetent[1].toString();
-      var date = msgConetent[2].toString();
-      db.run(`INSERT INTO gorevler (gorev, tarih) VALUES(?,?);`, [gorev,date],
-        function(error){
-          message.channel.send('Bildirim Eklendi.');
-          console.log(`Bildirim eklendi.`);
-        }
-      );
+      var cMess = mesajContent(message.content).split(`${botPrefix}bildirim `);
+      var gorev = cMess[1];
+      let filter = m => m.author.id === message.author.id
+      message.channel.send(`Bildirim Tarihi Girin: (YYYY-AA-GG)`).then(() => {
+        message.channel.awaitMessages(filter, {
+            max: 1,
+            time: 30000,
+            errors: ['time']
+          })
+          .then(dateMessage => {
+            date = dateMessage.first().content;
+            dateSplit = date.split("-");
+            if (dateSplit.length == 3) {
+              let filter = m => m.author.id === message.author.id
+              message.channel.send(`Bildirim Saati Girin: (Sadece Saat - Örnek: 16)`).then(() => {
+                message.channel.awaitMessages(filter, {
+                    max: 1,
+                    time: 30000,
+                    errors: ['time']
+                  })
+                  .then(dateSaat => {
+                    saat = dateSaat.first().content;
+                    db.run(`INSERT INTO gorevler (gorev, tarih, saatBildirim) VALUES(?,?,?);`, [gorev,date,saat],
+                    function(error){
+                      message.channel.send('Bildirim Eklendi.');
+                      console.log(`Bildirim eklendi. Bildirim: ${gorev}`);
+                    }
+                    ); 
+                  })
+                  .catch(collected => {
+                      message.channel.send('Bildirim Eklemesi İptal Edildi.');
+                  });
+              }) 
+            }else{
+              message.channel.send('Hatalı girdi. Bildirim eklemesi iptal edildi.')
+            }
+          })
+          .catch(collected => {
+              message.channel.send('Bildirim Eklemesi İptal Edildi.');
+          });
+      })
     }
 });
 
