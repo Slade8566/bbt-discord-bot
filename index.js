@@ -13,7 +13,7 @@ const cron = require('node-cron');
 const sqlite3 = require('sqlite3');
 var db = new sqlite3.Database(':memory:');
 const dateNow = new Date();
-db.run(`CREATE TABLE "gorevler" ("gorev"	TEXT,"tarih"	TEXT,"gorevdurum"	INTEGER DEFAULT 0);`);
+db.run(`CREATE TABLE IF NOT EXISTS "gorevler" ("gorev"	TEXT,"tarih"	TEXT,"gorevdurum"	INTEGER DEFAULT 0);`);
 cron.schedule('0 */1 * * *', function(){
   db.all("SELECT gorev, tarih, gorevdurum FROM gorevler", (error, rows) => {
     rows.forEach((row) => {
@@ -32,7 +32,7 @@ cron.schedule('0 */1 * * *', function(){
           if (hour == 12) {
             console.log(`Bügün için belirlenen bildirim(ler) var! Bildirim: ${row.gorev}`);
             //message.channel.send(`Saat 12:00`);
-            //message.channel.send(`Bügün için belirlenen bildirim(ler) var! Bildirim: ${req.gorev}`);
+            message.channel.send(`Bügün için belirlenen bildirim(ler) var! Bildirim: ${req.gorev}`);
             db.run(`UPDATE gorevler SET gorevdurum=1 WHERE gorev="${row.gorev}" and tarih="${row.tarih}"`,
               function(error){
                   console.log('Bildirim silindi.');
@@ -328,6 +328,16 @@ client.on("message", async (message) => {
       message.channel.send('https://i.hizliresim.com/uzKNIz.png');
     } else if (mesajContent(message.content) == "şaka şaka"){
       message.channel.send('https://tenor.com/boIil.gif');
+    } else if (mesajContent(message.content).startsWith(`${botprefix}bildirim`)) {
+      var msgConetent = (message.content.split(" "));
+      var gorev = msgConetent[1].toString();
+      var date = msgConetent[2].toString();
+      db.run(`INSERT INTO gorevler (gorev, tarih) VALUES(?,?);`, [gorev,date],
+        function(error){
+          message.channel.send('Bildirim Eklendi.');
+          console.log(`Bildirim eklendi.`);
+        }
+      );
     }
 });
 
