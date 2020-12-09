@@ -16,7 +16,7 @@ var db = new sqlite3.Database(':memory:');
 const dateNow = new Date();
 db.run(`CREATE TABLE IF NOT EXISTS "gorevler" ("gorev" TEXT, "tarih" TEXT, "gorevdurum" INTEGER DEFAULT 0, "saatBildirim" INTEGER DEFAULT 12);`);
 // 0 */1 * * *
-cron.schedule('0 */1 * * *', function(){
+cron.schedule('* * * * *', function(){
   console.log("CRONJOB");
   db.all("SELECT gorev, tarih, gorevdurum, saatBildirim FROM gorevler", (error, rows) => {
     rows.forEach((row) => {
