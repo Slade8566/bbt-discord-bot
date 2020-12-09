@@ -9,6 +9,41 @@ const botHost = process.env.HOST;
 const botPasswd = process.env.PASSWORD;
 const botPort = 80;
 const fs = require('fs');
+const cron = require('node-cron');
+const sqlite3 = require('sqlite3');
+var db = new sqlite3.Database(':memory:');
+const dateNow = new Date();
+db.run(`CREATE TABLE "gorevler" ("gorev"	TEXT,"tarih"	TEXT,"gorevdurum"	INTEGER DEFAULT 0);`);
+cron.schedule('0 */1 * * *', function(){
+  db.all("SELECT gorev, tarih, gorevdurum FROM gorevler", (error, rows) => {
+    rows.forEach((row) => {
+      const gorevdurum = row.gorevdurum;
+      if (gorevdurum == 0) {
+        const hour = (dateNow.getHours()/* + 3*/);
+        const gorevTarih = (row.tarih);
+        let day = dateNow.getDate();
+        let month = dateNow.getMonth() + 1;
+        let year = dateNow.getFullYear();
+        if (day.toString.length == 1) {
+          day = "0"+day.toString();
+        }
+        var fullDate = (year+"-"+month+"-"+day);
+        if (gorevTarih.toString() == fullDate.toString()) {
+          if (hour == 12) {
+            console.log(`Bügün için belirlenen bildirim(ler) var! Bildirim: ${row.gorev}`);
+            //message.channel.send(`Saat 12:00`);
+            //message.channel.send(`Bügün için belirlenen bildirim(ler) var! Bildirim: ${req.gorev}`);
+            db.run(`UPDATE gorevler SET gorevdurum=1 WHERE gorev="${row.gorev}" and tarih="${row.tarih}"`,
+              function(error){
+                  console.log('Bildirim silindi.');
+                }
+            );
+          }
+        }
+      }
+    })
+  })
+});
 const client = new Client();
 client.manager = new Manager({
   nodes: [
