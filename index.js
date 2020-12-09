@@ -16,9 +16,11 @@ var db = new sqlite3.Database(':memory:');
 const dateNow = new Date();
 db.run(`CREATE TABLE IF NOT EXISTS "gorevler" ("gorev" TEXT, "tarih" TEXT, "gorevdurum" INTEGER DEFAULT 0, "saatBildirim" INTEGER DEFAULT 12);`);
 // 0 */1 * * *
-cron.schedule('* * * * *', function(){
+cron.schedule('0 */1 * * *', function(){
+  console.log("CRONJOB");
   db.all("SELECT gorev, tarih, gorevdurum, saatBildirim FROM gorevler", (error, rows) => {
     rows.forEach((row) => {
+      console.log(row);
       const gorevdurum = row.gorevdurum;
       if (gorevdurum == 0) {
         const hour = (dateNow.getHours()/* + 3*/);
@@ -239,26 +241,6 @@ client.on("message", async (message) => {
       var role = message.guild.roles.cache.find(role => role.name === "Boş İşler Müdürü");
       message.member.roles.remove(role);
       message.channel.send(`${user}, Artık "Boş İşler Müdür" Değil`);
-    }
-  } else if ((mesajContent(message.content).startsWith(`${botPrefix}mamdinver`))){
-    if (!message.member.hasPermission("ADMINISTRATOR")){
-      message.channel.send("Bu komut için yetkiniz yok?!")
-    }else{
-      let user = message.mentions.members.first();
-      let banner = message.member.user;
-      var role = message.guild.roles.cache.find(role => role.name === "Mamdin");
-      user.member.roles.add(role);
-      message.channel.send(`${user}, ${banner} Tarafından "Mamdin" Olarak Atandı.`);
-    }
-  } else if ((mesajContent(message.content).startsWith(`${botPrefix}mamdinal`))){
-    if (!message.member.hasPermission("ADMINISTRATOR")){
-      message.channel.send("Bu komut için yetkiniz yok?!")
-    }else{
-      let user = message.mentions.members.first();
-      let banner = message.member.user;
-      var role = message.guild.roles.cache.find(role => role.name === "Mamdin");
-      user.roles.remove(role);
-      message.channel.send(`${user}, Artık "Mamdin" Değil`);
     }
   } else if (mesajContent(message.content) == "siyah"){
     message.channel.send('BEYAZ!');
