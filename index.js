@@ -17,13 +17,12 @@ const dateNow = new Date();
 db.run(`CREATE TABLE IF NOT EXISTS "gorevler" ("gorev" TEXT, "tarih" TEXT, "gorevdurum" INTEGER DEFAULT 0, "saatBildirim" INTEGER DEFAULT 12);`);
 // 0 */1 * * *
 cron.schedule('* * * * *', function(){
-  console.log("CRONJOB");
   db.all("SELECT gorev, tarih, gorevdurum, saatBildirim FROM gorevler", (error, rows) => {
     rows.forEach((row) => {
       console.log(row);
       const gorevdurum = row.gorevdurum;
       if (gorevdurum == 0) {
-        const hour = (dateNow.getHours()/* + 3*/);
+        const hour = (dateNow.getHours() + 3);
         const gorevTarih = (row.tarih);
         let day = dateNow.getDate();
         let month = dateNow.getMonth() + 1;
