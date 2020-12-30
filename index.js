@@ -316,6 +316,9 @@ client.on("message", async (message) => {
     } else if (mesajContent(message.content) == "akdiş kim"){
       message.channel.send('Akdiş: ');
       message.channel.send('https://i.hizliresim.com/M0tdzH.jpg');
+    } else if (mesajContent(message.content) == "ismet kim"){
+      message.channel.send('İsmet: ');
+      message.channel.send('https://i.hizliresim.com/e4IsV3.png');
     }
     /*else if (mesajContent(message.content).startsWith(`${botPrefix}bildirim`)) {
       var cMess = mesajContent(message.content).split(`${botPrefix}bildirim `);
