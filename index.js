@@ -313,6 +313,9 @@ client.on("message", async (message) => {
       message.channel.send('https://i.hizliresim.com/uzKNIz.png');
     } else if (mesajContent(message.content) == "şaka şaka"){
       message.channel.send('https://tenor.com/boIil.gif');
+    } else if (mesajContent(message.content) == "akdiş kim"){
+      message.channel.send('Akdiş: ');
+      message.channel.send('https://i.hizliresim.com/M0tdzH.jpg');
     }
     /*else if (mesajContent(message.content).startsWith(`${botPrefix}bildirim`)) {
       var cMess = mesajContent(message.content).split(`${botPrefix}bildirim `);
