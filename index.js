@@ -9,14 +9,15 @@ const botHost = process.env.HOST;
 const botPasswd = process.env.PASSWORD;
 const botPort = 80;
 const fs = require('fs');
-const cron = require('node-cron');
-const sqlite3 = require('sqlite3');
+//const cron = require('node-cron');
+//const sqlite3 = require('sqlite3');
 const { type } = require("os");
 var db = new sqlite3.Database(':memory:');
 const dateNow = new Date();
-db.run(`CREATE TABLE IF NOT EXISTS "gorevler" ("gorev" TEXT, "tarih" TEXT, "gorevdurum" INTEGER DEFAULT 0, "saatBildirim" INTEGER DEFAULT 12);`);
+//db.run(`CREATE TABLE IF NOT EXISTS "gorevler" ("gorev" TEXT, "tarih" TEXT, "gorevdurum" INTEGER DEFAULT 0, "saatBildirim" INTEGER DEFAULT 12);`);
 // 0 */1 * * *
-cron.schedule('0 */1 * * *', function(){
+/*
+cron.schedule('0 *1 * * *', function(){
   db.all("SELECT gorev, tarih, gorevdurum, saatBildirim FROM gorevler", (error, rows) => {
     rows.forEach((row) => {
       console.log(row);
@@ -47,6 +48,7 @@ cron.schedule('0 */1 * * *', function(){
     })
   })
 });
+*/
 const client = new Client();
 client.manager = new Manager({
   nodes: [
@@ -311,7 +313,8 @@ client.on("message", async (message) => {
       message.channel.send('https://i.hizliresim.com/uzKNIz.png');
     } else if (mesajContent(message.content) == "şaka şaka"){
       message.channel.send('https://tenor.com/boIil.gif');
-    } else if (mesajContent(message.content).startsWith(`${botPrefix}bildirim`)) {
+    }
+    /*else if (mesajContent(message.content).startsWith(`${botPrefix}bildirim`)) {
       var cMess = mesajContent(message.content).split(`${botPrefix}bildirim `);
       var gorev = cMess[1];
       let filter = m => m.author.id === message.author.id
@@ -353,7 +356,7 @@ client.on("message", async (message) => {
               message.channel.send('Bildirim Eklemesi İptal Edildi.');
           });
       })
-    }
+    }*/
 });
 
 client.login(botToken);
