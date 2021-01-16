@@ -319,6 +319,16 @@ client.on("message", async (message) => {
     } else if (mesajContent(message.content) == "ismet kim"){
       message.channel.send('İsmet: ');
       message.channel.send('https://i.hizliresim.com/e4IsV3.png');
+    } else if (mesajContent(message.content) == "ismet nerede"){
+      const channel = client.channels.cache.find(channel => channel.id === 781467489606696980)
+      channel.send("In Hell B*tch...");
+      channel.send("https://i.hizliresim.com/CpfLK3.jpg");
+    } else if (mesajContent(message.content) == "sait nerede"){
+      const channel = client.channels.cache.find(channel => channel.id === 781467489606696980)
+      channel.send("In Hell B*tch...");
+      channel.send("https://i.hizliresim.com/CpfLK3.jpg");
+    } else if (mesajContent(message.content) == "tuzlu su"){
+      message.channel.send("Sait'in Allah belasını versin!");
     }
     /*else if (mesajContent(message.content).startsWith(`${botPrefix}bildirim`)) {
       var cMess = mesajContent(message.content).split(`${botPrefix}bildirim `);
