@@ -319,11 +319,11 @@ client.on("message", async (message) => {
     } else if (mesajContent(message.content) == "ismet kim"){
       message.channel.send('İsmet: ');
       message.channel.send('https://i.hizliresim.com/e4IsV3.png');
-    } else if (mesajContent(message.content) == "ismet nerede"){
+    } else if (mesajContent(message.content) == "ismet nerde"){
       const channel = client.channels.cache.find(channel => channel.name === "0")
       channel.send("In Hell B*tch...");
       channel.send("https://i.hizliresim.com/CpfLK3.jpg");
-    } else if (mesajContent(message.content) == "sait nerede"){
+    } else if (mesajContent(message.content) == "sait nerde"){
       const channel = client.channels.cache.find(channel => channel.name === "0")
       channel.send("In Hell B*tch...");
       channel.send("https://i.hizliresim.com/CpfLK3.jpg");
